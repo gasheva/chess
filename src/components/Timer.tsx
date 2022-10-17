@@ -1,6 +1,7 @@
 import React, {FC, useEffect, useRef, useState} from 'react';
 import {Player} from '../models/Player';
 import {Colors} from '../models/Colors';
+import {INIT_TIME_IN_SEC} from '../constants/constants';
 
 interface TimerProps {
     currentPlayer: Player | null;
@@ -8,7 +9,6 @@ interface TimerProps {
 }
 
 const Timer: FC<TimerProps> = ({currentPlayer, restart}) => {
-    const INIT_TIME_IN_SEC = 300;
     const [blackTime, setBlackTime] = useState(INIT_TIME_IN_SEC);
     const [whiteTime, setWhiteTime] = useState(INIT_TIME_IN_SEC);
     const timer = useRef<null | ReturnType<typeof setInterval>>(null);
