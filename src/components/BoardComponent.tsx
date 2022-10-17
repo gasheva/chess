@@ -12,13 +12,18 @@ const BoardComponent: FC<BoardProps> = ({board, setBoard}) => {
     const [selectedCell, setSelectedCell] = useState<Cell | null>(null);
 
     function click(cell: Cell) {
+        if (selectedCell && selectedCell !== cell && selectedCell.figure?.canMove(cell)) {
+            selectedCell.moveFigure(cell);
+            setSelectedCell(null);
+        } else {
+            setSelectedCell(cell);
+        }
         if (cell.figure) {
             setSelectedCell(cell);
         }
     }
 
     useEffect(() => {
-        debugger
         highlightCells();
     }, [selectedCell]);
 

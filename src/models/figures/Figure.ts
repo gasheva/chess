@@ -31,6 +31,14 @@ export class Figure {
     }
 
     canMove(target: Cell): boolean {
+        // can't eat your own figure
+        if (target.figure?.color === this.color) {
+            return false;
+        }
+        // can't eat king
+        if (target.figure?.name === FigureNames.KING) {
+            return false;
+        }
         return true;
     }
 
