@@ -12,6 +12,8 @@ export class Board {
     cells: Cell[][] = [];
     lostBlackFigures: Figure[] = [];
     lostWhiteFigures: Figure[] = [];
+    whiteKing: Figure | null = null;
+    blackKing: Figure | null = null;
 
     public initCells() {
         for (let i = 0; i < 8; i++) {
@@ -57,8 +59,8 @@ export class Board {
     }
 
     private addKings() {
-        new King(Colors.BLACK, this.getCell(4, 0));
-        new King(Colors.WHITE, this.getCell(4, 7));
+        this.blackKing = new King(Colors.BLACK, this.getCell(4, 0));
+        this.whiteKing = new King(Colors.WHITE, this.getCell(4, 7));
     }
 
     private addQueens() {

@@ -6,6 +6,7 @@ import {Player} from './models/Player';
 import {Colors} from './models/Colors';
 import LostFigures from './components/LostFigures';
 import Timer from './components/Timer';
+import {King} from './models/figures/King';
 
 const App = () => {
     const [board, setBoard] = useState(new Board());
@@ -13,6 +14,9 @@ const App = () => {
     const [blackPlayer, setBlackPlayer] = useState(new Player(Colors.BLACK));
     const [currentPlayer, setCurrentPlayer] = useState<Player | null>(null);
     const [isTimeout, setIsTimeout] = useState<boolean>(false);
+
+    const [whiteKing, setWhiteKing] = useState<King | null>(null);
+    const [blackKing, setBlackKing] = useState<King | null>(null);
 
     useEffect(() => {
         restart();
@@ -22,6 +26,8 @@ const App = () => {
         const newBoard = new Board();
         newBoard.initCells();
         newBoard.addFigures();
+        setWhiteKing(newBoard.whiteKing);
+        setBlackKing(newBoard.blackKing);
         setBoard(newBoard);
         setCurrentPlayer(whitePlayer);
         setIsTimeout(false);
@@ -47,7 +53,10 @@ const App = () => {
                     <BoardComponent board={board}
                                     setBoard={setBoard}
                                     currentPlayer={currentPlayer}
-                                    swapPlayer={swapPlayer}/>
+                                    swapPlayer={swapPlayer}
+                                    whiteKing={whiteKing}
+                                    blackKing={blackKing}
+                    />
                 </>
             }
             <div>

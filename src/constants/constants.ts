@@ -1,1 +1,1 @@
-export const INIT_TIME_IN_SEC = 5;
+export const INIT_TIME_IN_SEC = 300;

@@ -35,13 +35,17 @@ export class Figure {
         if (target.figure?.color === this.color) {
             return false;
         }
-        // can't eat king
-        if (target.figure?.name === FigureNames.KING) {
-            return false;
-        }
+        // // can't eat king
+        // if (target.figure?.name === FigureNames.KING) {
+        //     return false;
+        // }
         return true;
     }
 
     moveFigure(target: Cell) {
+    }
+
+    isCheckmateDone(rivalKing: Cell){
+        return this.canMove(rivalKing);
     }
 }
