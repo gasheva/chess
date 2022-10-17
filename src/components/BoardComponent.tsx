@@ -7,7 +7,7 @@ import {Player} from '../models/Player';
 interface BoardProps {
     board: Board,
     setBoard: (board: Board) => void;
-    currentPlayer: Player,
+    currentPlayer: Player | null,
     swapPlayer: () => void;
 }
 
@@ -20,7 +20,7 @@ const BoardComponent: FC<BoardProps> = ({board, setBoard, currentPlayer, swapPla
             swapPlayer();
             setSelectedCell(null);
         } else {
-            if (cell.figure?.color === currentPlayer.color) {
+            if (cell.figure?.color === currentPlayer?.color) {
                 setSelectedCell(cell);
             }
         }
