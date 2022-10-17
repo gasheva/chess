@@ -12,6 +12,7 @@ const App = () => {
     const [whitePlayer, setWhitePlayer] = useState(new Player(Colors.WHITE));
     const [blackPlayer, setBlackPlayer] = useState(new Player(Colors.BLACK));
     const [currentPlayer, setCurrentPlayer] = useState<Player | null>(null);
+    const [isTimeout, setIsTimeout] = useState<boolean>(false);
 
     useEffect(() => {
         restart();
@@ -23,16 +24,32 @@ const App = () => {
         newBoard.addFigures();
         setBoard(newBoard);
         setCurrentPlayer(whitePlayer);
+        setIsTimeout(false);
     }
 
     function swapPlayer() {
         setCurrentPlayer(currentPlayer?.color === Colors.WHITE ? blackPlayer : whitePlayer);
     }
 
+    const timeout = () => {
+        setIsTimeout(true);
+    };
+
     return (
         <div className="app">
-            <Timer currentPlayer={currentPlayer} restart={restart}/>
-            <BoardComponent board={board} setBoard={setBoard} currentPlayer={currentPlayer} swapPlayer={swapPlayer}/>
+            <Timer currentPlayer={currentPlayer}
+                   timeout={timeout}
+                   restart={restart}/>
+            {isTimeout
+                ?
+                <h2>Timeout: No one won. No one failed</h2>
+                : <>
+                    <BoardComponent board={board}
+                                    setBoard={setBoard}
+                                    currentPlayer={currentPlayer}
+                                    swapPlayer={swapPlayer}/>
+                </>
+            }
             <div>
                 <LostFigures title="Black figures" figures={board.lostBlackFigures}/>
                 <LostFigures title="White figures" figures={board.lostWhiteFigures}/>

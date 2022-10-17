@@ -6,9 +6,10 @@ import {INIT_TIME_IN_SEC} from '../constants/constants';
 interface TimerProps {
     currentPlayer: Player | null;
     restart: () => void;
+    timeout: () => void;
 }
 
-const Timer: FC<TimerProps> = ({currentPlayer, restart}) => {
+const Timer: FC<TimerProps> = ({currentPlayer, restart, timeout}) => {
     const [blackTime, setBlackTime] = useState(INIT_TIME_IN_SEC);
     const [whiteTime, setWhiteTime] = useState(INIT_TIME_IN_SEC);
     const timer = useRef<null | ReturnType<typeof setInterval>>(null);
@@ -25,6 +26,10 @@ const Timer: FC<TimerProps> = ({currentPlayer, restart}) => {
         timer.current = setInterval(callback, 1000);
     }
 
+    function stopTimer() {
+        timer.current && clearInterval(timer.current);
+    }
+
     function decrementBlackTimer() {
         setBlackTime(prev => prev - 1);
     }
@@ -33,9 +38,22 @@ const Timer: FC<TimerProps> = ({currentPlayer, restart}) => {
         setWhiteTime(prev => prev - 1);
     }
 
+    // timeout
+    useEffect(() => {
+        if (isTimeout(blackTime) || isTimeout(whiteTime)) {
+            timeout();
+            stopTimer();
+        }
+    }, [blackTime, whiteTime]);
+
+    function isTimeout(time: number) {
+        return time === 0;
+    }
+
     const handleRestart = () => {
         setWhiteTime(INIT_TIME_IN_SEC);
         setBlackTime(INIT_TIME_IN_SEC);
+        startTimer();
         restart();
     };
 
