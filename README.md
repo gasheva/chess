@@ -1,3 +1,19 @@
+# Description
+Chess game on react. 
+
+# TODO List:
+- [x] board displaying;
+- [x] figures movements;
+- [x] players swapping;
+- [x] timer (handle with timeout);
+- [x] reset;
+- [ ] checkmate (⏳);
+- [ ] mate;
+- [ ] history;
+- [ ] silly AI (maybe);
+- [ ] cancel (with ai).
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
