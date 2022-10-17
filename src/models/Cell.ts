@@ -19,7 +19,15 @@ export class Cell {
         this.figure = figure;
         this.board = board;
         this.available = false;
-        this.id = Math.random()
+        this.id = Math.random();
+    }
+
+    moveFigure(target: Cell) {
+        if (this.figure?.canMove(target)) {
+            this.figure.moveFigure(target);
+            target.figure = this.figure;
+            this.figure = null;
+        }
     }
 
 }
